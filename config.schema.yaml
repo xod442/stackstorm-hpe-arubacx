@@ -1,0 +1,19 @@
+---
+username:
+  description: "Username for the Aruba CX switch"
+  type: "string"
+  required: true
+password:
+  description: "Password for the Aruba CX switch"
+  type: "string"
+  secret: true
+  required: true
+ipaddress:
+  description: "ip address for the Aruba CX switch"
+  type: "string"
+  required: true
+version:
+  description: "API version for the Aruba CX switch"
+  type: "string"
+  secret: true
+  required: true
