@@ -22,5 +22,12 @@ from lib.actions import ArubaCxBaseAction
 
 class alarmLookup(ArubaCxBaseAction):
     def run(self):
-        name = 'rick'
-        return (True, name)
+        print(self.base)
+        print(self.cookie)
+
+
+        # Logout of the session
+        url =  self.base + 'logout'
+        print("Logging out...")
+        response = self.session.post(url=url,cookies= self.cookie,verify=False)
+        return (True)

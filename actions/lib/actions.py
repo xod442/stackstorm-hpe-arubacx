@@ -22,7 +22,7 @@ from st2common.runners.base_action import Action
 class ArubaCxBaseAction(Action):
     def __init__(self,config):
         super(ArubaCxBaseAction, self).__init__(config)
-        self.client, self.cookie = self._get_client()
+        self.base, self.cookie, self.session = self._get_client()
 
     def _get_client(self):
         # create base address for REST requests (https://<ip>/rest/<ver>/)
@@ -40,7 +40,7 @@ class ArubaCxBaseAction(Action):
         response = s.post(url=url,params=login,verify=False)
 
         if response.status_code == requests.codes.ok:
-            cookie.set('id', response.cookies['id'], domain= ip)
-            return client cookie
+            cookie.set('id', response.cookies['id'], domain= self.config['ipaddress'])
+            return (base, cookie, s)
         else:
             print('Base Action Failure: No cookies for you')

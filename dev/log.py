@@ -14,7 +14,7 @@ requests.packages.urllib3.disable_warnings(InsecureRequestWarning)
 # parameters
 ver = 'v10.04'
 # ver = 'v1'
-ip = "10.132.0.215"
+ip = "10.132.0.10"
 user = "admin"
 passwd = "plexxi"
 
