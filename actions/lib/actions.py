@@ -43,4 +43,4 @@ class ArubaCxBaseAction(Action):
             cookie.set('id', response.cookies['id'], domain= self.config['ipaddress'])
             return (base, cookie, s)
         else:
-            print('Base Action Failure: No cookies for you')
+            print('Failed to login to host...try checking /opt/stackstorm/configs for the correct yaml creds')

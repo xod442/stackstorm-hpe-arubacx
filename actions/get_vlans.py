@@ -22,12 +22,10 @@ from lib.actions import ArubaCxBaseAction
 
 class alarmLookup(ArubaCxBaseAction):
     def run(self):
-        print(self.base)
-        print(self.cookie)
-
+        vlan_url = self.base + '/system/vlans?depth=1'
+        vlans = self.session.get(url=vlan_url,verify=False, timeout=2)
 
         # Logout of the session
         url =  self.base + 'logout'
-        print("Logging out...")
         response = self.session.post(url=url,cookies= self.cookie,verify=False)
-        return (True)
+        return (vlans)
