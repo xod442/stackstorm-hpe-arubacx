@@ -1,7 +1,7 @@
 ---
 name: get_vlans
 pack: arubacx
-description: Get an array of vlans from an Aruba CX switch
+description: Get a python dictionary of vlans from an Aruba CX switch
 runner_type: python-script
 entry_point: get_vlans.py
 enabled: true

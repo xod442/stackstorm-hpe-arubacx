@@ -19,13 +19,16 @@
 # __email__ = "rick.a.kauffman@hpe.com"
 
 from lib.actions import ArubaCxBaseAction
+imporet json
 
 class alarmLookup(ArubaCxBaseAction):
     def run(self):
-        vlan_url = self.base + '/system/vlans?depth=1'
+        # Retuens a python dictionary of the vlans
+        vlan_url = self.base + '/system/vlans'
         vlans = self.session.get(url=vlan_url,verify=False, timeout=2)
+        vlans = json.loads(vlans.text)
 
         # Logout of the session
-        url =  self.base + 'logout'
+        url =  self.base + '/logout'
         response = self.session.post(url=url,cookies= self.cookie,verify=False)
-        return (vlans)
+        return (True, vlans)
