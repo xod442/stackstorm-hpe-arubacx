@@ -31,4 +31,4 @@ class systemLookup(ArubaCxBaseAction):
         # Logout of the session
         url =  self.base + '/logout'
         response = self.session.post(url=url,cookies= self.cookie,verify=False)
-        return (True, vlans)
+        return (True, system)
