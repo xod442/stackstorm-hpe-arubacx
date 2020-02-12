@@ -19,7 +19,7 @@
 # __email__ = "rick.a.kauffman@hpe.com"
 
 from lib.actions import ArubaCxBaseAction
-imporet json
+import json
 
 class alarmLookup(ArubaCxBaseAction):
     def run(self):
