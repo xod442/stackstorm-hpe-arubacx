@@ -1,0 +1,7 @@
+---
+name: get_system
+pack: arubacx
+description: Get a dump of system information from Aruba CX switch
+runner_type: python-script
+entry_point: get_system.py
+enabled: true

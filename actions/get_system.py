@@ -21,12 +21,12 @@
 from lib.actions import ArubaCxBaseAction
 import json
 
-class alarmLookup(ArubaCxBaseAction):
+class systemLookup(ArubaCxBaseAction):
     def run(self):
         # Returns a python dictionary of the vlans
-        vlan_url = self.base + '/system/vlans'
-        vlans = self.session.get(url=vlan_url,verify=False, timeout=2)
-        vlans = json.loads(vlans.text)
+        system_url = self.base + '/system'
+        system = self.session.get(url=system_url,verify=False, timeout=2)
+        system = json.loads(system.text)
 
         # Logout of the session
         url =  self.base + '/logout'
