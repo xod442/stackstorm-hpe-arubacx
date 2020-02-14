@@ -1,0 +1,28 @@
+---
+name: post_vlans
+pack: arubacx
+description: Add vlans to an Aruba CX switch
+runner_type: python-script
+entry_point: post_vlans.py
+enabled: true
+parameters:
+  name:
+    type: "string"
+    description: "The vlan group name"
+    required: true
+    position: 0
+  description:
+    type: "string"
+    description: "The vlan group description"
+    required: true
+    position: 1
+  id:
+    type: "integer"
+    description: "The vlan number"
+    required: true
+    position: 2
+  admin:
+    type: "string"
+    description: "The admin state of the vlan"
+    required: true
+    position: 1
