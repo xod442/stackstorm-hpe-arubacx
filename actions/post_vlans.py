@@ -24,22 +24,20 @@ import json
 class PostVlan(ArubaCxBaseAction):
     def run(self, name=None, description=None, id=None, admin=None):
         # Send clan to the AurbaCX switch
-        params={}
-        params['name'] = name
-        params['description'] = description
-        params['id'] = id
-        params['admin'] = admin
+        vlan_data={}
+        vlan_data['name'] = name
+        vlan_data['description'] = description
+        vlan_data['id'] = id
+        vlan_data['admin'] = admin
 
         # create the vlans url
         vlan_url = self.base + '/system/vlans'
         # Post to the Aruba CX switch
-        response = self.session.post(url=vlan_url,params=params,verify=False)
-        # Validate response
-        if response.status_code == 201:
-            return(True, result.status_code)
-        return (False, result.status_code)
-
+        response = self.session.post(url=vlan_url,data=json.dumps(vlan_data),verify=False)
         # Logout of the session
         url =  self.base + '/logout'
-        response = self.session.post(url=url,cookies=self.cookie,verify=False)
-        return (True, vlans)
+        logout = self.session.post(url=url,cookies=self.cookie,verify=False)
+        # Validate response
+        if response.status_code == 201:
+            return(True, response)
+        return (False, response.status_code)
