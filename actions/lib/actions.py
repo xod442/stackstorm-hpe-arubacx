@@ -1,7 +1,9 @@
+#!/usr/bin/env python3
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
 # You may obtain a copy of the License at
 
+# (C) Copyright 2019-2020 Hewlett Packard Enterprise Development LP.
 #  http://www.apache.org/licenses/LICENSE-2.0
 
 # Unless required by applicable law or agreed to in writing, software
@@ -18,29 +20,29 @@
 
 import requests
 from st2common.runners.base_action import Action
+from requests.packages.urllib3.exceptions import InsecureRequestWarning
+requests.packages.urllib3.disable_warnings(InsecureRequestWarning)
+import logging
+
+logging.basicConfig(level=logging.INFO)
+from pyaoscx import session
 
 class ArubaCxBaseAction(Action):
     def __init__(self,config):
         super(ArubaCxBaseAction, self).__init__(config)
-        self.base, self.cookie, self.session = self._get_client()
+        self.username, self.version, self.switchip, self.password = self._get_client()
 
     def _get_client(self):
-        # create base address for REST requests (https://<ip>/rest/<ver>/)
-        s=requests.Session()
-        # cookie jar to store cookies after login
-        cookie = requests.cookies.RequestsCookieJar()
-        # Set URL
-        base_url = '/'.join(['https:/',  self.config['ipaddress']])
-        base_uri = '/'.join([ '', 'rest', self.config['version'],  ])
-        base =  base_url +  base_uri
-        url =  base + '/login'
-        # Set User/pass
-        login = {'username': self.config['username'], 'password': self.config['password']}
-        # Send REST to login
-        response = s.post(url=url,params=login,verify=False)
+        # self.config['username'] = 'admin'
+        # self.config['password'] = 'siesta3'
 
-        if response.status_code == requests.codes.ok:
-            cookie.set('id', response.cookies['id'], domain= self.config['ipaddress'])
-            return (base, cookie, s)
-        else:
-            print('Failed to login to host...try checking /opt/stackstorm/configs for the correct yaml creds')
+        base_url = "https://{0}/rest/{1}/".format('10.132.0.213', 'v10.04')
+        # base_url = "https://{0}/rest/{1}/".format(self.config['switchip'], self.config['version'])
+        print(base_url)
+        try:
+            session_dict = dict(s=session.login(base_url, 'admin', 'siesta3'), url=base_url)
+            # session_dict = dict(s=session.login(base_url, self.config['username'], self.config['password']), url=base_url)
+        except Exception as error:
+            print('Ran into exception: {}. Logging out..'.format(error))
+            session.logout(**session_dict)
+        return (session, session_dict)

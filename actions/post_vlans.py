@@ -15,15 +15,17 @@
 # __author__ = "@netwookie"
 # __credits__ = ["Rick Kauffman"]
 # __license__ = "Apache2.0"
-# __maintainer__ = "Rick Kauffman"
+# __maintainer__ = "Rick  Kauffman"
 # __email__ = "rick.a.kauffman@hpe.com"
 
 from lib.actions import ArubaCxBaseAction
 import json
+from requests.packages.urllib3.exceptions import InsecureRequestWarning
+requests.packages.urllib3.disable_warnings(InsecureRequestWarning)
 
 class PostVlan(ArubaCxBaseAction):
     def run(self, name=None, description=None, id=None, admin=None):
-        # Send clan to the AurbaCX switch
+        # Send vlan to the AurbaCX switch
         vlan_data={}
         vlan_data['name'] = name
         vlan_data['description'] = description

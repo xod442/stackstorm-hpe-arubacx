@@ -8,7 +8,7 @@
 
 # Unless required by applicable law or agreed to in writing, software
 # distributed under the License is distributed on an "AS IS" BASIS,
-# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# WITHOUT WARRANTIES OR CONDITIONS OF AN.Y KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
@@ -20,15 +20,19 @@
 
 from lib.actions import ArubaCxBaseAction
 import json
+from requests.packages.urllib3.exceptions import InsecureRequestWarning
+from pyaoscx import session,vlan
 
-class alarmLookup(ArubaCxBaseAction):
+import requests
+
+logging.basicConfig(level=logging.INFO)
+
+requests.packages.urllib3.disable_warnings(InsecureRequestWarning)
+
+class getVlans(ArubaCxBaseAction):
     def run(self):
         # Returns a python dictionary of the vlans
-        vlan_url = self.base + '/system/vlans'
-        vlans = self.session.get(url=vlan_url,verify=False, timeout=2)
-        vlans = json.loads(vlans.text)
-
+        vlan_data1 = vlan.get_all_vlans(self.**session_dict)
         # Logout of the session
-        url =  self.base + '/logout'
-        response = self.session.post(url=url,cookies= self.cookie,verify=False)
-        return (True, vlans)
+        self.session.logout(self.**session_dict)
+        return (True, vlans_data1)

@@ -8,7 +8,7 @@ password:
   type: "string"
   secret: true
   required: true
-ipaddress:
+switchip:
   description: "ip address for the Aruba CX switch"
   type: "string"
   required: true
